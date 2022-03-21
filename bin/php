@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -e
+
+command -v docker >/dev/null 2>&1 || { echo "docker is required to run this binary. Aborting." >&2; exit 1; }
+command -v docker-compose -v >/dev/null 2>&1 || { echo "docker-compose is required to run this binary. Aborting." >&2; exit 1; }
+
+docker-compose exec php-fpm php -d "xdebug.mode=off" "$@"

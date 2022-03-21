@@ -1,0 +1,39 @@
+version: '3.4'
+services:
+  nginx:
+    image: nginx:alpine
+    working_dir: /application
+    networks:
+      default:
+        aliases:
+          - mock
+    volumes:
+      - .:/application
+      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - ${APP_PORT}:80
+    links:
+      - php-fpm
+    depends_on:
+      - php-fpm
+
+  php-fpm:
+    build:
+      context: .
+      target: dev
+      dockerfile: docker/Dockerfile
+    working_dir: /application
+    volumes:
+      - .:/application
+      - composer:/tmp/composer
+    environment:
+      PHP_IDE_CONFIG: "serverName=sap-integration.localhost"
+      COMPOSER_HOME: "/tmp/composer"
+    extra_hosts:
+      - host.docker.internal:host-gateway
+
+volumes:
+  dbdata:
+    driver: local
+  composer:
+    driver: local

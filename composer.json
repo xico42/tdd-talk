@@ -1,0 +1,86 @@
+{
+    "name": "arquivei/sap-integration",
+    "type": "project",
+    "description": "Workers e API para integração com SAP",
+    "license": "proprietary",
+    "require": {
+        "php": "^8.1",
+        "ext-rdkafka": "^5.0",
+        "arquivei/events-sender": "3.2.1",
+        "arquivei/php-kafka-consumer": "2.3.1",
+        "doctrine/dbal": "3.3.2",
+        "fideloper/proxy": "4.4.1",
+        "fruitcake/laravel-cors": "2.1.0",
+        "guzzlehttp/guzzle": "7.4.1",
+        "laravel/framework": "8.83.2",
+        "monolog/monolog": "2.3.5",
+        "phpdocumentor/reflection-docblock": "5.3.0",
+        "ramsey/uuid": "4.2.3"
+    },
+    "require-dev": {
+        "barryvdh/laravel-ide-helper": "^2.9",
+        "dg/bypass-finals": "^1.3",
+        "facade/ignition": "^2.5.14",
+        "fakerphp/faker": "^1.13.0",
+        "laravel/tinker": "^2.6.1",
+        "mockery/mockery": "^1.4.3",
+        "nunomaduro/collision": "^5.3.0",
+        "nunomaduro/larastan": "^1.0",
+        "phpspec/prophecy-phpunit": "^2.0",
+        "phpstan/phpstan": "^1.3",
+        "phpunit/phpunit": "^9.5.3",
+        "squizlabs/php_codesniffer": "^3.6.2"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/arquivei/php-client"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi"
+        ],
+        "phpstan": "./vendor/bin/phpstan analyse",
+        "phpcs": "./vendor/bin/phpcs",
+        "phpcbf": "./vendor/bin/phpcbf",
+        "phpunit": "./vendor/bin/phpunit",
+        "integration": "./vendor/bin/phpunit --testsuite Integration --log-junit test-results/junit.xml",
+        "coverage": "./vendor/bin/phpunit --whitelist tests/ --coverage-html storage/tests/coverage/",
+        "check": [
+            "@phpunit --log-junit test-results/junit.xml",
+            "@phpstan"
+        ]
+    }
+}

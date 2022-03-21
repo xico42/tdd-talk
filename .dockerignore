@@ -1,0 +1,12 @@
+.run/
+bin/
+scripts/
+vendor/
+Makefile
+docker-compose.yml
+phpcs.*
+phpstan.*
+server.php
+README.md
+.phpcs-cache
+.phpunit.result.cache
