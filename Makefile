@@ -48,6 +48,8 @@ down:
 .PHONY: wait
 wait:
 	$(WAIT) nginx:80
+	$(WAIT) kafka:9092
+	$(WAIT) zookeeper:2181
 
 .PHONY:
 tests: phpunit
