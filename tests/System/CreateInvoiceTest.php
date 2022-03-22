@@ -28,5 +28,11 @@ class CreateInvoiceTest extends TestCase
         $topic->produce(RD_KAFKA_PARTITION_UA, 0, json_encode($data));
 
         $producer->flush(12000);
+
+        // consumir evento
+        $this->artisan('arquivei:tdd-talk:create-invoice', [
+            '--max-messages' => 1,
+            '--topic' => $topicName,
+        ]);
     }
 }
