@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\Mock;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,3 +12,7 @@ use Illuminate\Support\Facades\Route;
 | These are routes used for mocking apis during integration tests
 |
 */
+
+Route::group(['prefix' => 'sap'], function () {
+    Route::post('SalesTaxInvoices', [\App\Http\Controllers\Mock\SapController::class, 'createInvoice']);
+});
