@@ -18,13 +18,13 @@ trait CreatesApplication
         /** @var Application $app */
         $app = require __DIR__.'/../bootstrap/app.php';
 
-        $app->loadEnvironmentFrom('.env.integration');
+        $app->loadEnvironmentFrom('.env.testing');
 
         if (
-            basename($app->environmentFilePath()) !== '.env.integration'
+            basename($app->environmentFilePath()) !== '.env.testing'
             || !is_readable($app->environmentFilePath())
         ) {
-            throw new Exception('Missing .env.integration file');
+            throw new Exception('Missing .env.testing file');
         }
 
         $app->make(Kernel::class)->bootstrap();

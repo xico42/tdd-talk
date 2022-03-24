@@ -23,4 +23,8 @@ return [
             'password' => env('SASL_PASSWORD'),
         ],
     ],
+
+    'sap' => [
+        'base_uri' => env('SAP_BASE_URI'),
+    ]
 ];

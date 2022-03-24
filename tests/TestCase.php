@@ -6,6 +6,7 @@ namespace Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
+use Tests\Support\Traits\HttpClient;
 use Tests\Support\Traits\KafkaServer;
 
 class TestCase extends BaseTestCase
@@ -18,6 +19,10 @@ class TestCase extends BaseTestCase
 
         if (isset($uses[KafkaServer::class])) {
             $this->setUpKafka();
+        }
+
+        if (isset($uses[HttpClient::class])) {
+            $this->setUpHttpClient();
         }
 
         return $uses;
