@@ -68,6 +68,6 @@ class CreateInvoiceTest extends TestCase
             }
         }
 
-        $this->assertTrue($foundValidRequest);
+        $this->assertTrue($foundValidRequest, "No http request matching the expected was sent to SAP");
     }
 }
